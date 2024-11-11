@@ -83,7 +83,7 @@ public class StreamDemo {
             System.out.println(entry.getKey()+","+entry.getValue());
         });*/
 
-        //anymatch above 2000
+       /* //anymatch above 2000
 
        System.out.println( "Any Match"+generateRouters().stream().anyMatch(r->r.getCreatedOn().getYear()>2000));
 
@@ -121,7 +121,14 @@ public class StreamDemo {
      Optional<LocalDate> optionalLocalDate=
              generateRouters().stream().map(r->r.getCreatedOn()).min(LocalDate::compareTo);
       if(optionalLocalDate.isPresent())
-          System.out.println(optionalLocalDate.get());
+          System.out.println(optionalLocalDate.get());*/
+
+      //print first 50 records
+       // generateRouters().stream().limit(50).forEach(System.out::println);
+        //manages the list order
+        generateRouters().stream().skip(50).forEachOrdered(System.out::println);
+
+
     }
 
     public static List<Router> generateRouters(){
