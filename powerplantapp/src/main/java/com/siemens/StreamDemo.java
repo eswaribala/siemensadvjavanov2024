@@ -8,9 +8,7 @@ import com.siemens.models.Router;
 import com.siemens.models.Switch;
 import com.siemens.models.SwitchType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StreamDemo {
@@ -61,12 +59,20 @@ public class StreamDemo {
 
          //select only routers from switches send it to List
 
-       List<Router> routersInstances=
-               generateSwitches().stream()
-                       .flatMap(s->s.getRouters().stream())
-                       .collect(Collectors.toList());
+   /*List<Router> routersInstances=
+           generateSwitches().stream()
+                   .flatMap(s->s.getRouters().stream())
+                   .collect(Collectors.toList());
 
+    routersInstances.stream().forEach(System.out::println);*/
 
+        //create hashmap from switch --> List of switches to Map
+        Map<Long,List<Router>> mappedSwitches=generateSwitches().stream()
+                .collect(Collectors.toMap(s->s.getSwitchId(),s->s.getRouters().stream().toList()));
+
+        mappedSwitches.entrySet().stream().forEach(entry->{
+            System.out.println(entry.getKey()+","+entry.getValue());
+        });
 
 
 
