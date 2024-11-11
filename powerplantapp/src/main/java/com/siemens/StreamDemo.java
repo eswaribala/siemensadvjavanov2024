@@ -67,10 +67,18 @@ public class StreamDemo {
     routersInstances.stream().forEach(System.out::println);*/
 
         //create hashmap from switch --> List of switches to Map
-        Map<Long,List<Router>> mappedSwitches=generateSwitches().stream()
-                .collect(Collectors.toMap(s->s.getSwitchId(),s->s.getRouters().stream().toList()));
+    /*Map<Long,List<Router>> mappedSwitches=generateSwitches().stream()
+            .collect(Collectors.toMap(s->s.getSwitchId(),s->s.getRouters().stream().toList()));
 
-        mappedSwitches.entrySet().stream().forEach(entry->{
+    mappedSwitches.entrySet().stream().forEach(entry->{
+        System.out.println(entry.getKey()+","+entry.getValue());
+    });*/
+
+        //group by switch type and count
+        Map<SwitchType,Long> mappedValues=generateSwitches().stream().collect(
+                Collectors.groupingBy(s->s.getSwitchType(),Collectors.counting())
+        );
+        mappedValues.entrySet().stream().forEach(entry->{
             System.out.println(entry.getKey()+","+entry.getValue());
         });
 
