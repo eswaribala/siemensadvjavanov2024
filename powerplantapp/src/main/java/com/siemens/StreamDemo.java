@@ -18,7 +18,7 @@ public class StreamDemo {
         //generateRouters().stream().forEach(System.out::println);
         //Intermediate with terminal
         //sort the routers by created on
-       /* generateRouters().stream().sorted((r1,r2)->{
+        /*generateRouters().stream().sorted((r1,r2)->{
             if(r1.getRouterId()==r2.getRouterId())
                 return 0;
             else if (r1.getRouterId()>r2.getRouterId()) {
@@ -75,13 +75,35 @@ public class StreamDemo {
     });*/
 
         //group by switch type and count
-        Map<SwitchType,Long> mappedValues=generateSwitches().stream().collect(
+       /* Map<SwitchType,Long> mappedValues=generateSwitches().stream().collect(
                 Collectors.groupingBy(s->s.getSwitchType(),Collectors.counting())
         );
         mappedValues.entrySet().stream().forEach(entry->{
             System.out.println(entry.getKey()+","+entry.getValue());
-        });
+        });*/
 
+        //anymatch above 2000
+
+       System.out.println( "Any Match"+generateRouters().stream().anyMatch(r->r.getCreatedOn().getYear()>2000));
+
+       //allmatch above 2000
+
+        System.out.println( "All Match"+generateRouters().stream().allMatch(r->r.getCreatedOn().getYear()>2000));
+
+      //find any
+     Optional<Router> optionalRouter= generateRouters().stream()
+                .filter(r->r.getCreatedOn().getYear()>2000)
+                .findAny();
+
+     if(optionalRouter.isPresent())
+         System.out.println(optionalRouter.get());
+
+        Optional<Router> optionalRouterFindFirst= generateRouters().stream()
+                .filter(r->r.getCreatedOn().getYear()>2000)
+                .findFirst();
+
+        if(optionalRouterFindFirst.isPresent())
+            System.out.println(optionalRouterFindFirst.get());
 
 
     }
