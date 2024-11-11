@@ -105,6 +105,13 @@ public class StreamDemo {
         if(optionalRouterFindFirst.isPresent())
             System.out.println(optionalRouterFindFirst.get());
 
+        //optional present or else throw
+      Router router=  generateRouters().stream()
+                .filter(r->r.getCreatedOn().getYear()>2000)
+                .findAny()
+                .orElseThrow(()->new RuntimeException("Data Not found"));
+      System.out.println(router);
+
 
     }
 
