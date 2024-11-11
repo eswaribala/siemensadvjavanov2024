@@ -14,9 +14,7 @@ public class Main {
                   throw new RuntimeException(e);
               }
           }
-
        } ;
-
        Thread thread=new Thread(runnable);
        thread.start();
 
