@@ -8,6 +8,7 @@ import com.siemens.models.Router;
 import com.siemens.models.Switch;
 import com.siemens.models.SwitchType;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -112,7 +113,15 @@ public class StreamDemo {
                 .orElseThrow(()->new RuntimeException("Data Not found"));
       System.out.println(router);
 
-
+      //maximum router id
+      Optional<Long> maxData= generateRouters().stream().map(r->r.getRouterId()).max(Long::compareTo);
+        if(maxData.isPresent())
+            System.out.println(maxData.get());
+      //minimum router created date
+     Optional<LocalDate> optionalLocalDate=
+             generateRouters().stream().map(r->r.getCreatedOn()).min(LocalDate::compareTo);
+      if(optionalLocalDate.isPresent())
+          System.out.println(optionalLocalDate.get());
     }
 
     public static List<Router> generateRouters(){
