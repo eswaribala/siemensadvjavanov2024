@@ -7,6 +7,7 @@ import com.siemens.dtos.RouterResponse;
 import com.siemens.models.Router;
 import com.siemens.models.Switch;
 import com.siemens.models.SwitchType;
+import com.siemens.models.SwitchV1;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -126,7 +127,17 @@ public class StreamDemo {
       //print first 50 records
        // generateRouters().stream().limit(50).forEach(System.out::println);
         //manages the list order
-        generateRouters().stream().skip(50).forEachOrdered(System.out::println);
+        //generateRouters().stream().skip(50).forEachOrdered(System.out::println);
+
+        //how many switch types are there without duplication
+
+       //System.out.println(generateSwitches()
+              // .stream().map(s->s.getSwitchType()).distinct().count());
+
+    //findout total cost of switches
+    double totalCost=generateV1Switches().stream()
+            .map(s->s.getCost()).reduce(0.0,Double::sum);
+    System.out.println(totalCost);
 
 
     }
@@ -156,6 +167,21 @@ public class StreamDemo {
                     generateCountedRouters(new Random().nextInt(1,10))));
         }
        return switches;
+    }
+
+    public static List<SwitchV1> generateV1Switches(){
+        List<SwitchV1> switches=new ArrayList<>();
+        Faker faker=new Faker();
+        for(int i=0;i<25;i++){
+            SwitchType switchType=generateRandomSwitchTypes(SwitchType.class);
+            switches.add(new SwitchV1(faker.random().nextInt(100,10000),
+                    switchType,
+                    faker.random().nextInt(100,5000),
+                    generateCountedRouters(new Random().nextInt(1,10)),
+                    Double.parseDouble(faker.commerce().price())
+                    ));
+        }
+        return switches;
     }
 
     public static <T extends Enum<?>> T generateRandomSwitchTypes(Class<T> enumClass){
