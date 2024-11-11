@@ -44,7 +44,7 @@ public class StreamDemo {
 
 
         //sort the routers by created on , filter on date and return List<RouterResponse>
-     List<RouterResponse> routerResponses=generateRouters().stream()
+     /*List<RouterResponse> routerResponses=generateRouters().stream()
                 .filter(r->r.getCreatedOn().getYear()>2000)
                 .sorted((r1,r2)->{
                     if(r1.getRouterId()==r2.getRouterId())
@@ -57,7 +57,14 @@ public class StreamDemo {
                 .map(r->new RouterResponse(r.getRouterName(),r.getCreatedOn()))
                 .collect(Collectors.toList());
 
-        routerResponses.stream().forEach(System.out::println);
+          routerResponses.stream().forEach(System.out::println);*/
+
+         //select only routers from switches send it to List
+
+       List<Router> routersInstances=
+               generateSwitches().stream()
+                       .flatMap(s->s.getRouters().stream())
+                       .collect(Collectors.toList());
 
 
 
@@ -87,7 +94,7 @@ public class StreamDemo {
             switches.add(new Switch(faker.random().nextInt(100,10000),
                     switchType,
                     faker.random().nextInt(100,5000),
-                    generateCountedRouters(new Random().nextInt(1,50))));
+                    generateCountedRouters(new Random().nextInt(1,10))));
         }
        return switches;
     }
@@ -95,7 +102,6 @@ public class StreamDemo {
     public static <T extends Enum<?>> T generateRandomSwitchTypes(Class<T> enumClass){
        T[] enumValues= enumClass.getEnumConstants();
         return enumValues[new Random().nextInt(enumValues.length)];
-
     }
 
 
