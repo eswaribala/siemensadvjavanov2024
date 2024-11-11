@@ -19,13 +19,7 @@ public class RouterDemo {
             routerDao.addRouter(generateRouter());
         }
         Comparator<Router> comparator=(r1,r2)->{
-            if(r1.getRouterId()==r2.getRouterId())
-                return 0;
-            else if (r1.getRouterId()>r2.getRouterId()) {
-                return 1;
-
-            }else
-                return -1;
+            return r1.getCreatedOn().compareTo(r2.getCreatedOn());
         };
 
         List<Router> routers=routerDao.getAllRouters();
