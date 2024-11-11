@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class BuiltInFIDemo {
@@ -45,8 +46,12 @@ public class BuiltInFIDemo {
 
         consumer.accept(routerDao.getAllRouters());
 
+        Predicate<Router> routerPredicate=(routerInstance)->{
+            System.out.println(routerInstance.getCreatedOn()+","+LocalDate.now());
+            return routerInstance.getCreatedOn().isBefore(LocalDate.now());
+        } ;
 
-
+        System.out.println(routerPredicate.test(RouterDemo.generateRouter()));
 
     }
 }
