@@ -33,7 +33,7 @@ public class RouterDemo {
     }
 
 
-    private static Router generateRouter(){
+    public static Router generateRouter(){
         Faker faker=new Faker();
         return new Router(faker.random().nextInt(100,10000),
                 faker.internet().macAddress(),
