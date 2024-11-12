@@ -13,6 +13,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -22,7 +23,7 @@ public class HttpClientAsyncDemo {
     public static void main(String[] args){
         HttpRequest httpRequest=HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create("https://jsonplaceholder.typicode.com/users"))
+                .uri(URI.create("https://restcountries.com/v2/all"))
                 .build();
 
 
@@ -51,6 +52,15 @@ public class HttpClientAsyncDemo {
                     return null;
                 });
 
+        try {
+            completableFuture.get();
+        }
+        catch(ExecutionException ex){
+            System.out.println(ex.getMessage());
+        }
+        catch(InterruptedException ex){
+            System.out.println(ex.getMessage());
+        }
 
 
     }
@@ -61,6 +71,7 @@ public class HttpClientAsyncDemo {
             System.out.println(responseBody);
             return new JSONArray(responseBody);
         }catch (JSONException ex){
+            System.out.println(ex.getMessage());
                  return null;
         }
 
