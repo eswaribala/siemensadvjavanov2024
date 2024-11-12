@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class ParallelStreamDemo {
     public static void main(String[] args)  {
-        Path dirPath= Paths.get("H:\\siemensadvjavatrainingnov2024\\powerplantapp\\src\\main\\java\\com\\siemens\\models");
+        Path dirPath= Paths.get("src\\main\\java\\com\\siemens\\models");
         try(Stream<Path>filesPath= Files.list(dirPath)){
             List<String> allLines=filesPath.filter(Files::isRegularFile)
                     .parallel()
