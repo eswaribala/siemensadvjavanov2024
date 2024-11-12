@@ -11,6 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class HttpClientDemo {
@@ -34,10 +35,16 @@ public class HttpClientDemo {
            JSONArray jsonArray=new JSONArray(httpResponse.body().toString());
             JSONObject jsonObject=null;
             //Stream<JSONArray> jsonArrayStream=Arrays.stream(jsonArray);
-            for(int i=0;i<jsonArray.length();i++){
-               jsonObject= jsonArray.getJSONObject(i);
-               System.out.println(jsonObject.get("name"));
-            }
+           Stream<Object> jsonStream= IntStream.
+                   range(0,jsonArray.length()).mapToObj(jsonArray::get);
+
+           jsonStream.forEach(obj->{
+               final JSONObject jsonObjectInstance= (JSONObject) obj;
+               System.out.println(jsonObjectInstance.get("name"));
+
+           });
+
+
 
         }
         catch (IOException ex){
