@@ -14,13 +14,16 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class HttpClientAsyncDemo {
 
-    private static HttpClient httpClient=HttpClient.newHttpClient();
-    public static void main(String[] args){
+    private static    HttpClient httpClient=HttpClient.newHttpClient();
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
         HttpRequest httpRequest=HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create("https://restcountries.com/v2/all"))
@@ -30,15 +33,11 @@ public class HttpClientAsyncDemo {
         CompletableFuture<HttpResponse<String>> completableFuture=
                 httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
 
-        completableFuture
-                .thenApply(body-> {
-                            System.out.println(body);
-                            return parseJsonArray(body.toString());
 
-                        }
-                )
+       completableFuture
+                .thenApply(HttpResponse::body)
+               .thenApply(HttpClientAsyncDemo::parseJsonArray)
                 .thenAccept(jsonArray-> {
-
                     if(jsonArray!=null){
                         Stream<Object> jsonStream= IntStream.
                                 range(0,jsonArray.length()).mapToObj(jsonArray::get);
@@ -46,26 +45,14 @@ public class HttpClientAsyncDemo {
                             final JSONObject jsonObjectInstance= (JSONObject) obj;
                             if(!jsonObjectInstance.isNull("capital"))
                                 System.out.println(jsonObjectInstance.get("name")+","+jsonObjectInstance.get("capital"));
-
                         });
-
                     }
-
-
                 }).exceptionally(ex->{
                     System.out.println("Request Failed"+ex.getMessage());
                     return null;
-                });
+                }).join();
 
-        try {
-            completableFuture.get();
-        }
-        catch(ExecutionException ex){
-            System.out.println(ex.getMessage());
-        }
-        catch(InterruptedException ex){
-            System.out.println(ex.getMessage());
-        }
+
 
 
     }
