@@ -25,6 +25,14 @@ public class PatternMatcherDemo {
             System.out.println(device.getDeviceId());
         }
 
+        Object object="Advanced Java Training";
+        /*if(object instanceof String) {
+            String str= (String) object;
+            System.out.println(str);
+        }*/
+        if(object instanceof String str){
+            System.out.println(str);
+        }
 
     }
 }
