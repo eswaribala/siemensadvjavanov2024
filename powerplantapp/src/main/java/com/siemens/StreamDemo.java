@@ -138,7 +138,9 @@ public class StreamDemo {
     double totalCost=generateV1Switches().stream()
             .map(s->s.getCost()).reduce(0.0,Double::sum);
     System.out.println(totalCost);
-
+    //whenever data to be transformed from one format to another format
+     // System.out.println(generateV1Switches().stream()
+         //       .map(s->s.getCost()).mapToDouble(Double::doubleValue).sum());
 
     }
 
