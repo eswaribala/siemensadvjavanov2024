@@ -1,0 +1,83 @@
+Lab access of  Java lab 
+
+RDP to : connect.caitlabs.net:63159
+
+Trainer pod
+
+Username: admin
+Password: P@ssw0rd@123
+
+User1 pod
+
+connect.caitlabs.net:60131
+Username: admin
+Password: P@ssw0rd@123
+
+User2 pod
+
+connect.caitlabs.net:60132
+Username: admin
+Password: P@ssw0rd@123
+User3 pod
+
+connect.caitlabs.net:60133
+Username: admin
+Password: P@ssw0rd@123
+
+User 4 pod
+
+connect.caitlabs.net:60134
+Username: admin
+Password: P@ssw0rd@123
+
+User 5 pod
+
+connect.caitlabs.net:60135
+Username: admin
+Password: P@ssw0rd@123
+
+User6 pod
+
+connect.caitlabs.net:60136
+Username: admin
+Password: P@ssw0rd@123
+
+User7 pod
+
+connect.caitlabs.net:60137
+Username: admin
+Password: P@ssw0rd@123
+
+User8 pod
+
+connect.caitlabs.net:60138
+Username: admin
+Password: P@ssw0rd@123
+
+User9 pod
+
+connect.caitlabs.net:61131
+Username: admin
+Password: P@ssw0rd@123
+User10 pod
+
+connect.caitlabs.net:61132
+Username: admin
+Password: P@ssw0rd@123
+
+User11pod
+
+connect.caitlabs.net:61133
+Username: admin
+Password: P@ssw0rd@123
+
+User12 pod
+
+connect.caitlabs.net:61134
+Username: admin
+Password: P@ssw0rd@123
+User13 pod
+
+connect.caitlabs.net:61135
+Username: admin
+Password: P@ssw0rd@123
