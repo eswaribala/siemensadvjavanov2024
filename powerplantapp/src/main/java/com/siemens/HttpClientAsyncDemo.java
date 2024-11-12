@@ -30,8 +30,13 @@ public class HttpClientAsyncDemo {
         CompletableFuture<HttpResponse<String>> completableFuture=
                 httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
 
-        completableFuture.thenApply(HttpResponse::body)
-                .thenApply(body->parseJsonArray(body))
+        completableFuture
+                .thenApply(body-> {
+                            System.out.println(body);
+                            return parseJsonArray(body.toString());
+
+                        }
+                )
                 .thenAccept(jsonArray-> {
 
                     if(jsonArray!=null){
