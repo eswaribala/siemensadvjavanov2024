@@ -1,12 +1,13 @@
 package com.siemens.models;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@EqualsAndHashCode(callSuper = false)
-public sealed class Gateway extends Device permits Class1Gateway{
+@SuperBuilder
+public non-sealed  class Gateway extends Device  {
     private String dnsName;
 
     @Override
