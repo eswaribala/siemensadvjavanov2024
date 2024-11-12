@@ -33,14 +33,14 @@ public class HttpClientDemo {
                System.out.println(entry.getKey()+","+entry.getValue());
            });
            JSONArray jsonArray=new JSONArray(httpResponse.body().toString());
-            JSONObject jsonObject=null;
-            //Stream<JSONArray> jsonArrayStream=Arrays.stream(jsonArray);
+
            Stream<Object> jsonStream= IntStream.
                    range(0,jsonArray.length()).mapToObj(jsonArray::get);
 
            jsonStream.forEach(obj->{
                final JSONObject jsonObjectInstance= (JSONObject) obj;
-               System.out.println(jsonObjectInstance.get("name"));
+               if(!jsonObjectInstance.isNull("capital"))
+                System.out.println(jsonObjectInstance.get("name")+","+jsonObjectInstance.get("capital"));
 
            });
 
