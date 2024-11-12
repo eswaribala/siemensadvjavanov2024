@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Device {
+public sealed class Device permits Gateway {
     protected int deviceId;
     protected String deviceName;
 

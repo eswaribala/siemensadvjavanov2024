@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Router {
+public class Router{
     private long routerId;
     private String routerName;
     private LocalDate createdOn;

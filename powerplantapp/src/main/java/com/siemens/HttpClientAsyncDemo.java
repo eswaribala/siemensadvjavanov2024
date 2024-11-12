@@ -29,10 +29,8 @@ public class HttpClientAsyncDemo {
                 .uri(URI.create("https://restcountries.com/v2/all"))
                 .build();
 
-
         CompletableFuture<HttpResponse<String>> completableFuture=
                 httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString());
-
 
        completableFuture
                 .thenApply(HttpResponse::body)
@@ -51,9 +49,6 @@ public class HttpClientAsyncDemo {
                     System.out.println("Request Failed"+ex.getMessage());
                     return null;
                 }).join();
-
-
-
 
     }
 

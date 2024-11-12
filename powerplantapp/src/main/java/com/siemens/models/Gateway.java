@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 //@EqualsAndHashCode(callSuper = false)
-public class Gateway extends Device{
+public sealed class Gateway extends Device permits Class1Gateway{
     private String dnsName;
 
     @Override
