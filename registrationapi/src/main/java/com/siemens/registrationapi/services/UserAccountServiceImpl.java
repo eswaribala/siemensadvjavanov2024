@@ -1,6 +1,8 @@
 package com.siemens.registrationapi.services;
 
 
+import com.siemens.registrationapi.exceptions.UserAccountNotFoundException;
+import com.siemens.registrationapi.exceptions.UserAccountNullException;
 import com.siemens.registrationapi.models.UserAccount;
 import com.siemens.registrationapi.repositories.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,31 +18,42 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Override
     public UserAccount saveUserAccount(UserAccount userAccount) {
-        return null;
+        if(userAccount!=null)
+            return this.userAccountRepository.save(userAccount);
+        else
+          throw new UserAccountNullException("User Account Instance Not Available");
     }
 
     @Override
     public List<UserAccount> getAllUserAccounts() {
-        return null;
+        return this.userAccountRepository.findAll();
     }
 
     @Override
     public UserAccount getUserAccountById(long userId) {
-        return null;
+        return userAccountRepository.findById(userId)
+                .orElseThrow(()->new UserAccountNotFoundException("User Account Not Found"));
     }
 
     @Override
-    public UserAccount getUserAccountByPhoneNo(long phoneNo) {
-        return null;
+    public List<UserAccount> getUserAccountByPhoneNo(long phoneNo) {
+        return userAccountRepository.findUserAccountByPhoneNo(phoneNo);
     }
 
     @Override
     public UserAccount updateUserAccountEmail(long userId, String emailAddress) {
-        return null;
+
+        UserAccount userAccount=getUserAccountById(userId);
+        userAccount.setEmail(emailAddress);
+        return userAccountRepository.save(userAccount);
     }
 
     @Override
     public boolean deleteUserAccountById(long userId) {
-        return false;
+        boolean status=false;
+        UserAccount userAccount=getUserAccountById(userId);
+        userAccountRepository.deleteById(userId);
+        status=true;
+        return status;
     }
 }

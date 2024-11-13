@@ -8,7 +8,7 @@ public interface UserAccountService {
     UserAccount saveUserAccount(UserAccount userAccount);
     List<UserAccount> getAllUserAccounts();
     UserAccount getUserAccountById(long userId);
-    UserAccount getUserAccountByPhoneNo(long phoneNo);
+    List<UserAccount> getUserAccountByPhoneNo(long phoneNo);
     UserAccount updateUserAccountEmail(long userId, String emailAddress);
     boolean deleteUserAccountById(long userId);
 }
