@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService{
         boolean status=false;
         Product product=getProductById(productId);
         if(product!=null) {
-            productRepository.deleteById(productId);
+            productRepository.deleteProductByProductId(productId);
             status=true;
         }
         return status;
