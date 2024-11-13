@@ -5,6 +5,7 @@ import com.siemens.registrationapi.dtos.UserAccountRequest;
 import com.siemens.registrationapi.models.FullName;
 import com.siemens.registrationapi.models.UserAccount;
 import com.siemens.registrationapi.services.UserAccountService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class UserAccountController {
     private UserAccountService userAccountService;
 
    @PostMapping("/v1.0")
-   public ResponseEntity<GenericResponse> saveUserAccount(@RequestBody UserAccountRequest userAccountRequest){
+   public ResponseEntity<GenericResponse> saveUserAccount(@Valid @RequestBody UserAccountRequest userAccountRequest){
 
        UserAccount userAccount=UserAccount.builder()
                .dob(userAccountRequest.getDob())
