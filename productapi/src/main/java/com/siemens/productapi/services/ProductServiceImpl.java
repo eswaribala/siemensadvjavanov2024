@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product getProductById(long productId) {
-        return productRepository.findProductByProductId(productId).orElseThrow(()->new ProductNotAvailable("Product not found.... "));
+        return productRepository.findById(productId).orElseThrow(()->new ProductNotAvailable("Product not found.... "));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService{
         boolean status=false;
         Product product=getProductById(productId);
         if(product!=null) {
-            productRepository.deleteProductByProductId(productId);
+            productRepository.deleteById(productId);
             status=true;
         }
         return status;

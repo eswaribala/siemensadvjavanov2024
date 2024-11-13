@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.codecs.pojo.annotations.BsonId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,7 +17,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Builder
 @Document(collection = "products")
 public class Product {
-    @BsonId
+    @Id
     @Field("Product_Id")
     @Indexed(unique = true)
     private long productId;
