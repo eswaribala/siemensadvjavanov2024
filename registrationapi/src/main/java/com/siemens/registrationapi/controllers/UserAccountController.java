@@ -8,10 +8,9 @@ import com.siemens.registrationapi.services.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("useraccounts")
@@ -20,7 +19,7 @@ public class UserAccountController {
     @Autowired
     private UserAccountService userAccountService;
 
-    @PostMapping("/v1.0")
+   @PostMapping("/v1.0")
    public ResponseEntity<GenericResponse> saveUserAccount(@RequestBody UserAccountRequest userAccountRequest){
 
        UserAccount userAccount=UserAccount.builder()
@@ -42,4 +41,30 @@ public class UserAccountController {
 
    }
 
+   @GetMapping("/v1.0")
+   public ResponseEntity<GenericResponse> findAllUserAccounts(){
+       return ResponseEntity.status(HttpStatus.OK).body(new GenericResponse<List<UserAccount>>(userAccountService.getAllUserAccounts()));
+   }
+
+    @GetMapping("/v1.0/{userId}")
+    public ResponseEntity<GenericResponse> findUserAccountById(@PathVariable("userId") long userId){
+        return ResponseEntity.status(HttpStatus.OK).body(new GenericResponse<UserAccount>(userAccountService.getUserAccountById(userId)));
+    }
+    @GetMapping("/v1.0/filterByPhoneNo")
+    public ResponseEntity<GenericResponse> findUserAccountByPhoneNo(@RequestParam("phoneNo") long phoneNo){
+        return ResponseEntity.status(HttpStatus.OK).body(new GenericResponse<List<UserAccount>>(userAccountService.getUserAccountByPhoneNo(phoneNo)));
+    }
+
+    @PutMapping("/v1.0")
+    public ResponseEntity<GenericResponse> updateUserAccountEmail(@RequestParam("userId") long userId, @RequestParam("email") String email){
+        return ResponseEntity.status(HttpStatus.CREATED).body(new GenericResponse<UserAccount>(userAccountService.updateUserAccountEmail(userId,email)));
+    }
+    @DeleteMapping("/v1.0")
+    public ResponseEntity<GenericResponse> deleteUserAccount(@RequestParam("userId") long userId){
+       if(userAccountService.deleteUserAccountById(userId))
+           return ResponseEntity.status(HttpStatus.OK).body(new GenericResponse<String>("User Account Deleted"));
+       else
+           return ResponseEntity.status(HttpStatus.OK).body(new GenericResponse<String>("User Account Not Exist to Delete"));
+
+    }
 }
