@@ -17,8 +17,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UserAccountRequest {
 
-    private long userId;
-
 
     private FullName fullName;
 
