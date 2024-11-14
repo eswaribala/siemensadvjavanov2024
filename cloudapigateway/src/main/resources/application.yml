@@ -8,7 +8,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
   instance:
-    hostname: localhost
+    hostname: host.docker.internal
     prefer-ip-address: true
 spring:
   application:
