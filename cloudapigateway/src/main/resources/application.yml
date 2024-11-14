@@ -7,9 +7,9 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
     register-with-eureka: true
     fetch-registry: true
-  instance:
-    hostname: host.docker.internal
-    prefer-ip-address: true
+  #instance:
+    #hostname: localhost
+    #prefer-ip-address: true
 spring:
   application:
     name: gateway
@@ -19,8 +19,8 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: REGISTRATIONAPI
-          uri: lb://REGISTRATIONAPI
+        - id: registration-api
+          uri: lb://registration-api
           predicates:
             - Path=/swagger-ui.html, /v3/api-docs/**, /swagger-ui/**
       discovery:
