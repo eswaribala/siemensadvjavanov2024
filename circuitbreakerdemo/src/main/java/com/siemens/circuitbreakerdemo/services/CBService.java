@@ -20,6 +20,11 @@ public class CBService {
     @Value("${alternativeServiceUrl}")
     private String fallbackUrl;
 
+    @Value("${serviceUrl1}")
+    private String serviceUrl1;
+    @Value("${alternativeServiceUrl1}")
+    private String fallbackUrl1;
+
     @CircuitBreaker(name = "gatewayCircuitBreaker", fallbackMethod = "fallback")
     @Retry(name = "gatewayRetry")
     @RateLimiter(name="gatewayRateLimiter")
@@ -42,5 +47,25 @@ public class CBService {
                 .body(String.class);
     }
 
+    @CircuitBreaker(name = "gatewayCircuitBreaker", fallbackMethod = "fallback1")
+    @Retry(name = "gatewayRetry")
+    @RateLimiter(name="gatewayRateLimiter")
+    public String getUsersV1(){
+        log.info("Entering into Accounts API call...");
+        return restClient
+                .get()
+                .uri(serviceUrl1)
+                .retrieve()
+                .body(String.class);
 
+    }
+
+    public String fallback1(Exception e){
+        log.info("Entering into Fallback Accounts API call...");
+        return restClient
+                .get()
+                .uri(fallbackUrl1)
+                .retrieve()
+                .body(String.class);
+    }
 }

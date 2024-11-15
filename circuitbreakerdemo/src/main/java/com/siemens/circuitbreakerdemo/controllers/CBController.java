@@ -18,5 +18,10 @@ public class CBController {
         return cbService.getUserAccounts();
 
     }
+    @GetMapping("/v1.0/url1")
+    public String getUserAccountsV1(){
+        return cbService.getUsersV1();
+
+    }
 
 }
