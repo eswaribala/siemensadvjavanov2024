@@ -37,5 +37,5 @@ resilience4j:
 
 
 
-serviceUrl: http://host.docker.internal:7072//v1.0
+serviceUrl: http://localhost:7074/swagger-ui.html
 alternativeServiceUrl: https://jsonplaceholder.typicode.com/users
