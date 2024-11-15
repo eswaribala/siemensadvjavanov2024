@@ -27,13 +27,14 @@ public class UserAccountServiceImpl implements UserAccountService {
           throw new UserAccountNullException("User Account Instance Not Available");
     }
 
-    @Cacheable(cacheNames = "useraccounts",key = "#userId")
+
     @Override
     public List<UserAccount> getAllUserAccounts() {
         return this.userAccountRepository.findAll();
     }
 
     @Override
+    @Cacheable(cacheNames = "useraccounts",key = "#userId")
     public UserAccount getUserAccountById(long userId) {
         return userAccountRepository.findById(userId)
                 .orElseThrow(()->new UserAccountNotFoundException("User Account Not Found"));
