@@ -22,6 +22,9 @@ public class CartConsumerService {
         log.info(data);
         ObjectMapper objectMapper=new ObjectMapper();
         Cart cart= objectMapper.readValue(data, Cart.class);
+       cart.setTotalAmount(cart.getProducts()
+               .stream().map(p->p.getCost()).reduce(0L,Long::sum));
+
         cartRepository.save(cart);
     }
 }
