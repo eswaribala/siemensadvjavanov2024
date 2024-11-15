@@ -6,6 +6,9 @@ import com.siemens.registrationapi.exceptions.UserAccountNullException;
 import com.siemens.registrationapi.models.UserAccount;
 import com.siemens.registrationapi.repositories.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +27,7 @@ public class UserAccountServiceImpl implements UserAccountService {
           throw new UserAccountNullException("User Account Instance Not Available");
     }
 
+    @Cacheable(cacheNames = "useraccounts",key = "#userId")
     @Override
     public List<UserAccount> getAllUserAccounts() {
         return this.userAccountRepository.findAll();
@@ -41,6 +45,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
+    @CachePut(cacheNames = "useraccounts")
     public UserAccount updateUserAccountEmail(long userId, String emailAddress) {
 
         UserAccount userAccount=getUserAccountById(userId);
@@ -49,6 +54,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "useraccounts",allEntries = true)
     public boolean deleteUserAccountById(long userId) {
         boolean status=false;
         UserAccount userAccount=getUserAccountById(userId);
