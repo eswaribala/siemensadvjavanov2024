@@ -7,9 +7,10 @@ eureka:
       defaultZone: http://eureka-server:8761/eureka
     register-with-eureka: true
     fetch-registry: true
-  #instance:
-    #hostname: localhost
-    #prefer-ip-address: true
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    ip-address: localhost
 spring:
   application:
     name: gateway
@@ -19,10 +20,12 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: registration-api
-          uri: lb://registration-api
+        - id: REGISTRATIONAPI
+          uri: lb://REGISTRATIONAPI
           predicates:
             - Path=/swagger-ui.html, /v3/api-docs/**, /swagger-ui/**
+          filters:
+            - RewritePath=/REGISTRATIONAPI/(?<segment>.*), /$\\{segment}
       discovery:
         locator:
           enabled: true
